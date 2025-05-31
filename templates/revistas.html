@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	{% extends "base.html" %}
+    {% load static %}
+
+	{% block category %}
+	
+	<div class="collapse navbar-collapse">
+		<!-- menus -->
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item dropdown active">
+				<a class="nav-link dropdown-toggle" href="">Categorias</a>
+				<ul class="dropdown-menu">
+					<li><a class="dropdown-item" href="revistas.html">Revistas</a></li>
+					<li><a class="dropdown-item" href="personal.html">Artigos</a></li>
+					<li><a class="dropdown-item" href="personal-alt.html">Perguntas e Respostas</a></li>
+					<li><a class="dropdown-item" href="minimal.html">Projetos</a></li>
+					<li><a class="dropdown-item" href="classic.html">Experimentos</a></li>
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="biografias.html">Biografias</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="novidades.html">Novidades</a>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#">Tópicos</a>
+				<ul class="dropdown-menu">
+					{% for post in blog_cat %}
+					<a href="{% url 'category' category=post.category %}">{{ post.category }}</a>
+					{% endfor %}
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="contact.html">Contato</a>
+			</li>
+		</ul>
+	</div>
+	{% endblock category %}
+    {% block body %}
+	<!DOCTYPE html>
+	<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Lista de Revistas</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				background-color: #f4f4f4;
+				margin: 0;
+				padding: 0;
+			}
+			.container {
+				width: 80%;
+				margin: auto;
+				padding: 20px;
+			}
+			h1 {
+				color: #2e7d32; /* Verde escuro */
+			}
+			.search-bar {
+				margin-bottom: 20px;
+			}
+			.search-bar input {
+				width: 100%;
+				padding: 10px;
+				border: 1px solid #2e7d32;
+				border-radius: 5px;
+			}
+			.revista {
+				background-color: #e8f5e9; /* Verde claro */
+				padding: 15px;
+				margin-bottom: 10px;
+				border-radius: 5px;
+				box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+			}
+			.revista h2 {
+				color: #1b5e20;
+			}
+			.revista p {
+				color: #555;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Lista de Revistas</h1>
+			<div class="search-bar">
+				<input type="text" placeholder="Buscar por revistas">
+			</div>
+	
+			{% for revista in revistas %}
+			<div class="revista">
+				<h2>{{ revista.titulo }}</h2>
+				<p>Publicado em: {{ revista.data_publicacao }}</p>
+				<p>{{ revista.descricao }}</p>
+			</div>
+			{% endfor %}
+		</div>
+	</body>
+	</html>	
+{% endblock body %}

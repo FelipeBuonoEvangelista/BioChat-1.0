@@ -1,0 +1,113 @@
+	{% extends "base.html" %}
+    {% load static %}
+
+	{% block category %}
+	
+	<div class="collapse navbar-collapse">
+		<!-- menus -->
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item dropdown active">
+				<a class="nav-link dropdown-toggle" href="">Categorias</a>
+				<ul class="dropdown-menu">
+					<li><a class="dropdown-item" href="revistas.html">Revistas</a></li>
+					<li><a class="dropdown-item" href="personal.html">Artigos</a></li>
+					<li><a class="dropdown-item" href="personal-alt.html">Perguntas e Respostas</a></li>
+					<li><a class="dropdown-item" href="minimal.html">Projetos</a></li>
+					<li><a class="dropdown-item" href="classic.html">Experimentos</a></li>
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="biografias.html">Biografias</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="novidades.html">Novidades</a>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#">Tópicos</a>
+				<ul class="dropdown-menu">
+					{% for post in blog_cat %}
+					<a href="{% url 'category' category=post.category %}">{{ post.category }}</a>
+					{% endfor %}
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="contact.html">Contato</a>
+			</li>
+		</ul>
+	</div>
+	{% endblock category %}
+    {% block body %}
+	<!DOCTYPE html>
+	<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Biografias</title>
+		<style>
+			body {
+				font-family: 'Arial', sans-serif;
+				background-color: #f4f4f4;
+				display: flex;
+				flex-wrap: wrap;
+				gap: 20px;
+				justify-content: center;
+				padding: 20px;
+			}
+	
+			.bio-card {
+				background: #fff;
+				border-radius: 10px;
+				box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+				overflow: hidden;
+				width: 300px;
+				cursor: pointer;
+				transition: transform 0.3s ease;
+			}
+	
+			.bio-card img {
+				width: 100%;
+				height: 200px;
+				object-fit: cover;
+			}
+	
+			.bio-card h2 {
+				margin: 0;
+				padding: 10px;
+				background: #4caf50;
+				color: #fff;
+				text-align: center;
+			}
+	
+			.bio-card p {
+				display: none;
+				padding: 10px;
+			}
+	
+			.bio-card.active {
+				transform: scale(1.05);
+			}
+	
+			.bio-card.active p {
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+	
+	{% for biografia in biografias %}
+		<div class="bio-card" onclick="toggleBio(this)">
+			<img src="{{ biografia.image.url }}" alt="{{ biografia.name }}">
+			<h2>{{ biografia.name }}</h2>
+			<p>{{ biografia.description }}</p>
+		</div>
+	{% endfor %}
+	
+	<script>
+		function toggleBio(card) {
+			card.classList.toggle('active');
+		}
+	</script>
+	
+	</body>
+	</html>	
+{% endblock body %}

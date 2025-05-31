@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+	<!-- section main content -->
+	<section class="main-content mt-3">
+		<div class="container-xl">
+
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">{{post.category}}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{post.title}}</li>
+                </ol>
+            </nav>
+
+			<div class="row gy-4">
+
+				<div class="col-lg-8">
+					<!-- post single -->
+                    <div class="post post-single">
+						<!-- post header -->
+						<div class="post-header">
+							<h1 class="title mt-0 mb-3">{{post.title}}</h1>
+							<ul class="meta list-inline mb-0">
+								<li class="list-inline-item"><a href="#"><img src="{{post.image.url}}" class="author" alt="author"/>{{post.author}}</a></li>
+								<li class="list-inline-item"><a href="#">Trending</a></li>
+								<li class="list-inline-item">{{post.date}}</li>
+							</ul>
+						</div>
+						<!-- featured image -->
+						<div class="featured-image">
+							<img src="{{post.img.url}}" alt="post-title" />
+						</div>
+						<!-- post content -->
+						<div class="post-content clearfix">
+							<p>{{post.content}}</p>
+						</div>
+						<!-- post bottom section -->
+						<div class="post-bottom">
+							<div class="row d-flex align-items-center">
+								<div class="col-md-6 col-12">
+									<!-- social icons -->
+									<ul class="social-icons list-unstyled list-inline mb-0 float-md-end">
+										<li class="list-inline-item"><a href="https://www.facebook.com/profile.php?id=61574640128942"><i class="fab fa-facebook-f"></i></a></li>
+										<li class="list-inline-item"><a href="https://x.com/Biochatbiomed"><i class="fab fa-twitter"></i></a></li>
+										<li class="list-inline-item"><a href="https://www.instagram.com/biochat.biomed/"><i class="fab fa-instagram"></i></a></li>
+										<li class="list-inline-item"><a href="https://br.pinterest.com/biochatouniversoeverde/"><i class="fab fa-pinterest"></i></a></li>
+										<li class="list-inline-item"><a href="https://medium.com/@biochatouniversoeverde"><i class="fab fa-medium"></i></a></li>
+										<li class="list-inline-item"><a href="https://www.youtube.com/channel/UCWFZiEGlUZxIdOarhgSEJmw"><i class="fab fa-youtube"></i></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+                    </div>
+
+					<div class="spacer" data-height="50"></div>
+					<div class="spacer" data-height="50"></div>
+
+					<!-- section header -->
+					<div class="section-header">
+						<h3 class="section-title">Comentários ({{comments.count}})</h3>
+					</div>
+					<!-- post comments -->
+					<div class="comments bordered padding-30 rounded">
+
+						<ul class="comments">
+							{% for comment in comments %}
+							<!-- comment item -->
+							<li class="comment rounded">
+								<div class="thumb">
+									<img src="{%static 'images/other/comment-1.png' %}" alt="{{comment.name}}" />
+								</div>
+								<div class="details">
+									<h4 class="name"><a href="#">{{comment.name}}</a></h4>
+									<span class="date">{{comment.date}}</span>
+									<p>{{comment.comment}}</p>
+									<a href="#" class="btn btn-default btn-sm">Reply</a>
+								</div>
+							</li>
+							{% endfor %}
+						</ul>
+					</div>
+
+					<div class="spacer" data-height="50"></div>
+
+					<!-- section header -->
+					<div class="section-header">
+						<h3 class="section-title">Deixe um Comentário!</h3>
+					</div>
+					<!-- comment form -->
+					<div class="comment-form rounded bordered padding-30">
+
+						<form id="comment-form" class="comment-form" method="post" action="{% url 'add_comment' post.blog_slug %}">
+							<div class="messages"></div>
+							{% csrf_token %}
+						
+							<!-- Hidden field for Blog Post ID -->
+							<input type="hidden" name="post_id" value="{{ post.id }}">
+						
+							<div class="row">
+								<div class="column col-md-12">
+									<!-- Comment textarea -->
+									<div class="form-group">
+										<textarea name="InputComment" id="InputComment" class="form-control" rows="4" placeholder="Escreva um comentário..." required="required"></textarea>
+									</div>
+								</div>
+						
+								<div class="column col-md-6">
+									<!-- Email input -->
+									<div class="form-group">
+										<input type="email" class="form-control" id="InputEmail" name="InputEmail" placeholder="E-mail" required="required">
+									</div>
+								</div>
+						
+								<div class="column col-md-12">
+									<!-- Name input -->
+									<div class="form-group">
+										<input type="text" class="form-control" id="InputName" name="InputName" placeholder="Digite seu nome!" required="required">
+									</div>
+								</div>
+							</div>
+						
+							<button type="submit" name="submit" id="submit" value="Submit" class="btn btn-default">Enviar</button><!-- Submit Button -->
+						</form>
+						
+					</div>
+                </div>
+
+				<div class="col-lg-4">
+
+					<!-- sidebar -->
+					<div class="sidebar">
+						<!-- widget about -->
+						<div class="widget rounded">
+							<div class="widget-about data-bg-image text-center" data-bg-image="images/map-bg.png">
+								<img src="{%static 'images/logo.svg' %}" alt="logo" class="mb-4" />
+								<p class="mb-4">O Biochat é uma plataforma inovadora criada para reunir em um único espaço todas as informações, discussões e atualizações relacionadas à biomedicina. A iniciativa visa conectar profissionais, estudantes e entusiastas da área, proporcionando um ambiente onde é possível compartilhar conhecimentos, tirar dúvidas e trocar experiências sobre os mais diversos tópicos dentro da biomedicina. Com recursos interativos e uma interface acessível, o Biochat busca facilitar o acesso a conteúdos especializados, promovendo um debate rico e a disseminação de novos avanços científicos e pesquisas. A plataforma se torna, assim, uma ferramenta essencial para aqueles que desejam se manter atualizados e conectados com o universo da biomedicina, colaborando para o desenvolvimento contínuo dessa área tão importante para a saúde e bem-estar da sociedade.</p>
+								<ul class="social-icons list-unstyled list-inline mb-0">
+									<li class="list-inline-item"><a href="https://www.facebook.com/profile.php?id=61574640128942"><i class="fab fa-facebook-f"></i></a></li>
+									<li class="list-inline-item"><a href="https://x.com/Biochatbiomed"><i class="fab fa-twitter"></i></a></li>
+									<li class="list-inline-item"><a href="https://www.instagram.com/biochat.biomed/"><i class="fab fa-instagram"></i></a></li>
+									<li class="list-inline-item"><a href="https://br.pinterest.com/biochatouniversoeverde/"><i class="fab fa-pinterest"></i></a></li>
+									<li class="list-inline-item"><a href="https://medium.com/@biochatouniversoeverde"><i class="fab fa-medium"></i></a></li>
+									<li class="list-inline-item"><a href="https://www.youtube.com/channel/UCWFZiEGlUZxIdOarhgSEJmw"><i class="fab fa-youtube"></i></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+	</section>
+
+	<!-- instagram feed -->
+	<div class="instagram">
+		<div class="container-xl">
+			<!-- button -->
+			<a href="https://www.instagram.com/biochat.biomed/" class="btn btn-default btn-instagram">Nos Siga no Instagram!</a>
+		</div>
+	</div>
+
+{% endblock body %}

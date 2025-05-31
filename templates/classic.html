@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+	{% extends "base.html" %}
+    {% load static %}
+
+	{% block category %}
+	
+	<div class="collapse navbar-collapse">
+		<!-- menus -->
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item dropdown active">
+				<a class="nav-link dropdown-toggle" href="">Categorias</a>
+				<ul class="dropdown-menu">
+					<li><a class="dropdown-item" href="revistas.html">Revistas</a></li>
+					<li><a class="dropdown-item" href="personal.html">Artigos</a></li>
+					<li><a class="dropdown-item" href="personal-alt.html">Perguntas e Respostas</a></li>
+					<li><a class="dropdown-item" href="minimal.html">Projetos</a></li>
+					<li><a class="dropdown-item" href="classic.html">Experimentos</a></li>
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="biografias.html">Biografias</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="novidades.html">Novidades</a>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#">Tópicos</a>
+				<ul class="dropdown-menu">
+					{% for post in blog_cat %}
+					<a href="{% url 'category' category=post.category %}">{{ post.category }}</a>
+					{% endfor %}
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="contact.html">Contato</a>
+			</li>
+		</ul>
+	</div>
+	{% endblock category %}
+    {% block body %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experimentos - Visualização</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .video-item {
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .video-item:hover {
+            transform: translateY(-5px);
+        }
+        .video-item h3 {
+            color: #203656;
+            padding: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .video-item p {
+            color: #707a88;
+            padding: 0 10px 10px;
+            font-size: 14px;
+        }
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Experimentos</h1>
+
+        <div class="video-grid">
+            {% for video in videos %}
+            <div class="video-item">
+                <h3>{{ video.title }}</h3>
+                <video controls>
+                    <source src="{{ video.file.url }}" type="video/mp4">
+                    Seu navegador não suporta vídeos.
+                </video>
+                <p>{{ video.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+{% endblock body %}

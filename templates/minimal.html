@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	{% extends "base.html" %}
+    {% load static %}
+
+	{% block category %}
+	
+	<div class="collapse navbar-collapse">
+		<!-- menus -->
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item dropdown active">
+				<a class="nav-link dropdown-toggle" href="">Categorias</a>
+				<ul class="dropdown-menu">
+					<li><a class="dropdown-item" href="revistas.html">Revistas</a></li>
+					<li><a class="dropdown-item" href="personal.html">Artigos</a></li>
+					<li><a class="dropdown-item" href="personal-alt.html">Perguntas e Respostas</a></li>
+					<li><a class="dropdown-item" href="minimal.html">Projetos</a></li>
+					<li><a class="dropdown-item" href="classic.html">Experimentos</a></li>
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="biografias.html">Biografias</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="novidades.html">Novidades</a>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#">Tópicos</a>
+				<ul class="dropdown-menu">
+					{% for post in blog_cat %}
+					<a href="{% url 'category' category=post.category %}">{{ post.category }}</a>
+					{% endfor %}
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="contact.html">Contato</a>
+			</li>
+		</ul>
+	</div>
+	{% endblock category %}
+    {% block body %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notícias Espaciais</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #eafaf1;
+            color: #2d6a4f;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin-top: 20px;
+        }
+
+        .noticia {
+            display: flex;
+            align-items: center;
+            background-color: #d8f3dc;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .noticia img {
+            width: 200px;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .conteudo {
+            padding: 15px;
+        }
+
+        .titulo {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .descricao {
+            font-size: 1em;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% for noticia in noticias %}
+        <div class="noticia">
+            <img src="{{ noticia.imagem.url }}" alt="Imagem da notícia">
+            <div class="conteudo">
+                <a href="{{ noticia.link }}" target="_blank">
+                <div class="titulo">{{ noticia.titulo }}</div>
+                </a>
+                <div class="descricao">{{ noticia.descricao }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
+{% endblock body %}

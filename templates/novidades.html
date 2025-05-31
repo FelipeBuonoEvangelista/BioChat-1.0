@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block category %}
+
+<div class="collapse navbar-collapse">
+    <!-- menus -->
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown active">
+            <a class="nav-link dropdown-toggle" href="">Categorias</a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="revistas.html">Revistas</a></li>
+                <li><a class="dropdown-item" href="personal.html">Artigos</a></li>
+                <li><a class="dropdown-item" href="personal-alt.html">Perguntas e Respostas</a></li>
+                <li><a class="dropdown-item" href="minimal.html">Projetos</a></li>
+                <li><a class="dropdown-item" href="classic.html">Experimentos</a></li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="biografias.html">Biografias</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="novidades.html">Novidades</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#">Tópicos</a>
+            <ul class="dropdown-menu">
+                {% for post in blog_cat %}
+                <a href="{% url 'category' category=post.category %}">{{ post.category }}</a>
+                {% endfor %}
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contato</a>
+        </li>
+    </ul>
+</div>
+{% endblock category %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novidades</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            margin: auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #2e7d32;
+            text-align: center;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .card-content {
+            padding: 15px;
+        }
+        .card h2 {
+            color: #2e7d32;
+            font-size: 1.2em;
+            margin: 0 0 10px 0;
+        }
+        .card p {
+            font-size: 0.9em;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .card a {
+            display: block;
+            text-decoration: none;
+            color: #2e7d32;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+            background-color: #e8f5e9;
+            border-top: 1px solid #ddd;
+        }
+        .card a:hover {
+            background-color: #c8e6c9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Últimas Novidades</h1>
+        <div class="grid">
+            {% for noticia in noticias %}
+            <div class="card">
+                <a href="{{ noticia.link }}" target="_blank">
+                    <img src="{{ noticia.imagem.url }}" alt="{{ noticia.titulo }}">
+                    <div class="card-content">
+                        <h2>{{ noticia.titulo }}</h2>
+                        <p>{{ noticia.descricao|truncatechars:100 }}</p>
+                        <p><small>{{ noticia.data_publicacao|date:"d M Y" }}</small></p>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+{% endblock body %}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	{% extends "base.html" %}
+    {% load static %}
+
+	{% block category %}
+	
+	<div class="collapse navbar-collapse">
+		<!-- menus -->
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item dropdown active">
+				<a class="nav-link dropdown-toggle" href="">Categorias</a>
+				<ul class="dropdown-menu">
+					<li><a class="dropdown-item" href="revistas.html">Revistas</a></li>
+					<li><a class="dropdown-item" href="personal.html">Artigos</a></li>
+					<li><a class="dropdown-item" href="personal-alt.html">Perguntas e Respostas</a></li>
+					<li><a class="dropdown-item" href="minimal.html">Projetos</a></li>
+					<li><a class="dropdown-item" href="classic.html">Experimentos</a></li>
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="biografias.html">Biografias</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="novidades.html">Novidades</a>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#">Tópicos</a>
+				<ul class="dropdown-menu">
+					{% for post in blog_cat %}
+					<a href="{% url 'category' category=post.category %}">{{ post.category }}</a>
+					{% endfor %}
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="contact.html">Contato</a>
+			</li>
+		</ul>
+	</div>
+	{% endblock category %}
+    {% block body %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioChat - Artigos</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header>
+		<div class="container">
+			<h1 class="text-center">Artigos</h1>
+    </header>
+
+    <section class="articles-container">
+        {% for article in articles %}
+        <article class="article-card">
+            <h2>{{ article.title }}</h2>
+            {% if article.image %}
+            <img src="{{ article.image.url }}" alt="{{ article.title }}">
+            {% endif %}
+            <p>{{ article.content|safe }}</p>
+            <a href="{{ article.link }}" target="_blank">Leia mais</a>
+        </article>
+        {% endfor %}
+    </section>
+
+    <footer>
+        <p>&copy; 2025 BioChat - Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
+{% endblock body %}

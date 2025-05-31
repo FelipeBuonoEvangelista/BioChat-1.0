@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+    <section class="bg-white shadow-lg rounded-2xl p-8 w-96">
+        <h1 class="text-3xl font-semibold text-green-700 mb-4 text-center">Entre em Contato</h1>
+        <div class="text-gray-600 mb-6 text-center">
+            <p><strong>Endereço:</strong> Rod. Teotônio Vilela, 3821, Jd. Alvorada</p>
+            <p><strong>CEP:</strong> 16016-500 - Araçatuba-SP</p>
+            <p><strong>Telefone:</strong> (18) 3636-5252</p>
+            <p><strong>Email:</strong> <a href="mailto:biochatouniversoeverde@gmail.com" class="text-green-700 hover:underline">biochatouniversoeverde@gmail.com</a></p>
+            <p><strong>Instituição:</strong> MISSÃO SALESIANA DE MATO GROSSO</p>
+            <p><strong>CNPJ:</strong> 03.226.149/0013-15</p>
+        </div>
+        <form class="space-y-4">
+            <h2 class="text-xl font-medium text-green-600 mb-2">Mande uma mensagem</h2>
+            <input type="text" placeholder="Seu nome" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600">
+            <input type="email" placeholder="Seu email" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600">
+            <textarea placeholder="Sua mensagem" rows="5" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"></textarea>
+            <button type="submit" class="w-full bg-gradient-to-r from-green-700 to-green-500 text-white font-semibold py-3 rounded-lg hover:scale-105 transform transition">Enviar</button>
+        </form>
+    </section>
+</body>
+</html>

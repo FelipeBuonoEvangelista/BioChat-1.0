@@ -1,0 +1,34 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Biografias</title>
+</head>
+<body>
+    <div class="container">
+        <header class="header-default">
+            <h1 class="text-center">Biografias</h1>
+        </header>
+
+        <section class="main-content">
+            {% for biography in biographies %}
+            <article class="post">
+                <h2 class="post-title">{{ biography.name }}</h2>
+                <p class="meta">{{ biography.date_of_birth }} - {{ biography.date_of_death }}</p>
+                <div class="thumb">
+                    <img src="{{ biography.image.url }}" alt="Foto de {{ biography.name }}">
+                </div>
+                <div class="post-content">
+                    <p>{{ biography.description }}</p>
+                </div>
+            </article>
+            {% endfor %}
+        </section>
+    </div>
+</body>
+</html>

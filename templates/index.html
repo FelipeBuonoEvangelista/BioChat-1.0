@@ -1,0 +1,453 @@
+	{% extends "base.html" %}
+    {% load static %}
+
+	{% block category %}
+	
+	<div class="collapse navbar-collapse">
+		<!-- menus -->
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item dropdown active">
+				<a class="nav-link dropdown-toggle" href="">Categorias</a>
+				<ul class="dropdown-menu">
+					<li><a class="dropdown-item" href="revistas.html">Revistas</a></li>
+					<li><a class="dropdown-item" href="personal.html">Artigos</a></li>
+					<li><a class="dropdown-item" href="personal-alt.html">Perguntas e Respostas</a></li>
+					<li><a class="dropdown-item" href="minimal.html">Projetos</a></li>
+					<li><a class="dropdown-item" href="classic.html">Experimentos</a></li>
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="biografias.html">Biografias</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="novidades.html">Novidades</a>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#">Tópicos</a>
+				<ul class="dropdown-menu">
+					{% for post in blog_cat %}
+					<a href="{% url 'category' category=post.category %}">{{ post.category }}</a>
+					{% endfor %}
+				</ul>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="contact.html">Contato</a>
+			</li>
+		</ul>
+	</div>
+	{% endblock category %}
+    {% block body %}
+    <!-- hero section -->
+	<section id="hero">
+
+		<div class="container-xl">
+
+			<div class="row gy-4">
+
+				<div class="col-lg-8">
+					
+					<!-- featured post large -->
+					 {% for post in main_post %}
+					<div class="post featured-post-lg">
+						<div class="details clearfix">
+							<a href="category.html" class="category-badge">{{post.category}}</a>
+							<h2 class="post-title"><a href="{% url "blog_detail" post.blog_slug %}">{{post.title}}</a></h2>
+							<ul class="meta list-inline mb-0">
+								<li class="list-inline-item"><a href="#">{{post.author}}</a></li>
+								<li class="list-inline-item">{{post.date}}</li>
+							</ul>
+						</div>
+						<a href="{% url "blog_detail" post.blog_slug %}">
+							<div class="thumb rounded">
+								<div class="inner data-bg-image" data-bg-image="{%static 'images/posts/featured-lg.jpg' %}"></div>
+							</div>
+						</a>
+					</div>
+					{% endfor %}
+
+				</div>
+
+				<div class="col-lg-4">
+
+					<!-- post tabs -->
+					<div class="post-tabs rounded bordered">
+						<!-- tab navs -->
+						<ul class="nav nav-tabs nav-pills nav-fill" id="postsTab" role="tablist">
+							<li class="nav-item" role="presentation"><button aria-controls="popular" aria-selected="true" class="nav-link active" data-bs-target="#popular" data-bs-toggle="tab" id="popular-tab" role="tab" type="button">Populares</button></li>
+							<li class="nav-item" role="presentation"><button aria-controls="recent" aria-selected="false" class="nav-link" data-bs-target="#recent" data-bs-toggle="tab" id="recent-tab" role="tab" type="button">Recentes</button></li>
+						</ul>
+						<!-- tab contents -->
+						<div class="tab-content" id="postsTabContent">
+							<!-- loader -->
+							<div class="lds-dual-ring"></div>
+							<!-- popular posts -->
+							<div aria-labelledby="popular-tab" class="tab-pane fade show active" id="popular" role="tabpanel">
+							</div>
+							<!-- recent posts -->
+							<div aria-labelledby="recent-tab" class="tab-pane fade" id="recent" role="tabpanel">
+								<!-- post -->
+								 {% for post in recent_news %}
+								<div class="post post-list-sm circle">
+									<div class="thumb circle">
+										<a href="{% url "blog_detail" post.blog_slug %}">
+											<div class="inner">
+												<img src="{{post.img.url}}" alt="post-title" />
+											</div>
+										</a>
+									</div>
+									<div class="details clearfix">
+										<h6 class="post-title my-0"><a href="{% url "blog_detail" post.blog_slug %}">{{post.title}}</a></h6>
+										<ul class="meta list-inline mt-1 mb-0">
+											<li class="list-inline-item">{{post.date}}</li>
+										</ul>
+									</div>
+								</div>
+								{% endfor %}
+								<!-- post -->
+								<div class="post post-list-sm circle">
+									<div class="thumb circle">
+										<a href="blog-single.html">
+											<div class="inner">
+											</div>
+										</a>
+									</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+	</section>
+
+	<!-- section main content -->
+	<section class="main-content">
+		<div class="container-xl">
+
+			<div class="row gy-4">
+
+				<div class="col-lg-8">
+
+					<!-- section header -->
+					<div class="section-header">
+						<h3 class="section-title">Escolhas do Editor</h3>
+					</div>
+
+					<div class="padding-30 rounded bordered">
+						<div class="row gy-5">
+							<div class="col-sm-6">
+						</div>
+					</div>
+
+					<div class="spacer" data-height="50"></div>
+
+					<!-- horizontal ads -->
+					<div class="ads-horizontal text-md-center">
+						<span class="ads-title">- Anúncio Pago -</span>
+						<a href="#">
+							<img src="images/ads/ad-750.png" alt="Anúncio" />
+						</a>
+					</div>
+
+					<div class="spacer" data-height="50"></div>
+
+					<!-- section header -->
+					<div class="section-header">
+						<h3 class="section-title">Tendências do Ramo!</h3>
+					</div>
+
+					<div class="padding-30 rounded bordered">
+						<div class="row gy-5">
+							<div class="col-sm-6">
+							</div>
+							<div class="col-sm-6">
+
+								<div class="post post-list-sm square before-seperator">
+									<div class="thumb rounded">
+										<a href="blog-single.html">
+											<div class="inner">
+											</div>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="spacer" data-height="50"></div>
+
+					<!-- section header -->
+					<div class="section-header">
+						<h3 class="section-title">Estudos Populares</h3>
+						<div class="slick-arrows-top">
+							<button type="button" data-role="none" class="carousel-topNav-prev slick-custom-buttons" aria-label="Previous"><i class="icon-arrow-left"></i></button>
+							<button type="button" data-role="none" class="carousel-topNav-next slick-custom-buttons" aria-label="Next"><i class="icon-arrow-right"></i></button>
+						</div>
+					</div>
+
+					<div class="row post-carousel-twoCol post-carousel">
+							<a href="blog-single.html">
+							</a>
+						</div>
+					</div>
+
+					<div class="spacer" data-height="50"></div>
+
+					<!-- section header -->
+					<div class="section-header">
+						<h3 class="section-title">Últimos Posts</h3>
+					</div>
+
+					<div class="padding-30 rounded bordered">
+
+						<div class="row">
+							
+							<div class="col-md-12 col-sm-6">
+								<!-- post -->
+								<div class="post post-list clearfix">
+									<div class="thumb rounded">
+										<span class="post-format-sm">
+											<i class="icon-picture"></i>
+										</span>
+										<a href="blog-single.html">
+											<div class="inner">
+												<img src="" alt="Imagem do post" />
+											</div>
+										</a>
+									</div>
+									<div class="details">
+										<ul class="meta list-inline mb-3">
+											<li class="list-inline-item"><a href="#"><img src="" class="author" alt="Autor"/>Teste</a></li>
+											<li class="list-inline-item"><a href="#">Tendências</a></li>
+											<li class="list-inline-item">Data Teste</li>
+										</ul>
+										<h5 class="Imagem do Post"><a href="blog-single.html">Conteúdo</a></h5>
+										<p class="excerpt mb-0">Tema</p>
+										<div class="post-bottom clearfix d-flex align-items-center">
+											<div class="social-share me-auto">
+												<button class="toggle-button icon-share"></button>
+												<ul class="icons list-unstyled list-inline mb-0">
+													<li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="fab fa-pinterest"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="far fa-envelope"></i></a></li>
+												</ul>
+											</div>
+											<div class="more-button float-end">
+												<a href="blog-single.html"><span class="icon-options"></span></a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- post -->
+								<div class="post post-list clearfix">
+									<div class="thumb rounded">
+										<span class="post-format-sm">
+											<i class="icon-picture"></i>
+										</span>
+										<a href="blog-single.html">
+											<div class="inner">
+												<img src="" alt="Imagem do post" />
+											</div>
+										</a>
+									</div>
+									<div class="details">
+										<ul class="meta list-inline mb-3">
+											<li class="list-inline-item"><a href="#"><img src="" class="author" alt="Autor"/>Teste</a></li>
+											<li class="list-inline-item"><a href="#">Tendências</a></li>
+											<li class="list-inline-item">Data Teste</li>
+										</ul>
+										<h5 class="Imagem do Post"><a href="blog-single.html">Conteúdo</a></h5>
+										<p class="excerpt mb-0">Tema</p>
+										<div class="post-bottom clearfix d-flex align-items-center">
+											<div class="social-share me-auto">
+												<button class="toggle-button icon-share"></button>
+												<ul class="icons list-unstyled list-inline mb-0">
+													<li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="fab fa-pinterest"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="far fa-envelope"></i></a></li>
+												</ul>
+											</div>
+											<div class="more-button float-end">
+												<a href="blog-single.html"><span class="icon-options"></span></a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- post -->
+								<div class="post post-list clearfix">
+									<div class="thumb rounded">
+										<span class="post-format-sm">
+											<i class="icon-picture"></i>
+										</span>
+										<a href="blog-single.html">
+											<div class="inner">
+												<img src="" alt="Imagem do post" />
+											</div>
+										</a>
+									</div>
+									<div class="details">
+										<ul class="meta list-inline mb-3">
+											<li class="list-inline-item"><a href="#"><img src="" class="author" alt="Autor"/>Teste</a></li>
+											<li class="list-inline-item"><a href="#">Tendências</a></li>
+											<li class="list-inline-item">Data Teste</li>
+										</ul>
+										<h5 class="Imagem do Post"><a href="blog-single.html">Conteúdo</a></h5>
+										<p class="excerpt mb-0">Tema</p>
+										<div class="post-bottom clearfix d-flex align-items-center">
+											<div class="social-share me-auto">
+												<button class="toggle-button icon-share"></button>
+												<ul class="icons list-unstyled list-inline mb-0">
+													<li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="fab fa-pinterest"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="far fa-envelope"></i></a></li>
+												</ul>
+											</div>
+											<div class="more-button float-end">
+												<a href="blog-single.html"><span class="icon-options"></span></a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- post -->
+								<div class="post post-list clearfix">
+									<div class="thumb rounded">
+										<span class="post-format-sm">
+											<i class="icon-picture"></i>
+										</span>
+										<a href="blog-single.html">
+											<div class="inner">
+												<img src="" alt="Imagem do post" />
+											</div>
+										</a>
+									</div>
+									<div class="details">
+										<ul class="meta list-inline mb-3">
+											<li class="list-inline-item"><a href="#"><img src="" class="author" alt="Autor"/>Teste</a></li>
+											<li class="list-inline-item"><a href="#">Tendências</a></li>
+											<li class="list-inline-item">Data Teste</li>
+										</ul>
+										<h5 class="Imagem do Post"><a href="blog-single.html">Conteúdo</a></h5>
+										<p class="excerpt mb-0">Tema</p>
+										<div class="post-bottom clearfix d-flex align-items-center">
+											<div class="social-share me-auto">
+												<button class="toggle-button icon-share"></button>
+												<ul class="icons list-unstyled list-inline mb-0">
+													<li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="fab fa-pinterest"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="far fa-envelope"></i></a></li>
+												</ul>
+											</div>
+											<div class="more-button float-end">
+												<a href="blog-single.html"><span class="icon-options"></span></a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- post -->
+								<div class="post post-list clearfix">
+									<div class="thumb rounded">
+										<span class="post-format-sm">
+											<i class="icon-picture"></i>
+										</span>
+										<a href="blog-single.html">
+											<div class="inner">
+												<img src="" alt="Imagem do post" />
+											</div>
+										</a>
+									</div>
+									<div class="details">
+										<ul class="meta list-inline mb-3">
+											<li class="list-inline-item"><a href="#"><img src="" class="author" alt="Autor"/>Teste</a></li>
+											<li class="list-inline-item"><a href="#">Tendências</a></li>
+											<li class="list-inline-item">Data Teste</li>
+										</ul>
+										<h5 class="Imagem do Post"><a href="blog-single.html">Conteúdo</a></h5>
+										<p class="excerpt mb-0">Tema</p>
+										<div class="post-bottom clearfix d-flex align-items-center">
+											<div class="social-share me-auto">
+												<button class="toggle-button icon-share"></button>
+												<ul class="icons list-unstyled list-inline mb-0">
+													<li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="fab fa-pinterest"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
+													<li class="list-inline-item"><a href="#"><i class="far fa-envelope"></i></a></li>
+												</ul>
+											</div>
+											<div class="more-button float-end">
+												<a href="blog-single.html"><span class="icon-options"></span></a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>								
+						>
+						<!-- Botão Carregar Mais -->
+						<div class="text-center">
+							<button class="btn btn-simple">Carregar Mais</button>
+						</div>
+
+					</div>
+
+				</div>
+				<div class="col-lg-4">
+						<!-- Widget tela de cadastro -->
+					<div class="widget-content">
+						<span class="newsletter-headline text-center mb-3">Se Junte a Comunidade!</span>
+						<form>
+							<div class="mb-2">
+								<input class="form-control w-100 text-center" placeholder="Endereço de e-mail…" type="email">
+							</div>
+							<button class="btn btn-default btn-full" type="submit">Cadastre-se</button>
+						</form>
+						<span class="newsletter-privacy text-center mt-3">Se inscrevendo, você concorda com nossos <a href="#">Termos e Condições</a></span>
+					</div>		
+				</div>
+
+								<!-- carousel arrows -->
+								<div class="slick-arrows-bot">
+									<button type="button" data-role="none" class="carousel-botNav-prev slick-custom-buttons" aria-label="Previous"><i class="icon-arrow-left"></i></button>
+									<button type="button" data-role="none" class="carousel-botNav-next slick-custom-buttons" aria-label="Next"><i class="icon-arrow-right"></i></button>
+								</div>
+							</div>		
+						</div>
+						<!-- widget advertisement -->
+						<div class="widget no-container rounded text-md-center">
+							<span class="ads-title">- Anúncio Pago! -</span>
+							<a href="#" class="widget-ads">
+								<img src="images/ads/ad-360.png" alt="Anúncio" />	
+							</a>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+	</section>
+	<!-- instagram feed -->
+	<div class="instagram">
+		<div class="container-xl">
+			<!-- button -->
+			<a href="#" class="btn btn-default btn-instagram">Siga nossas redes Sociais!</a>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock body %}
